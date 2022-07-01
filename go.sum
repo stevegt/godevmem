@@ -1,0 +1,8 @@
+github.com/dolmen-go/codegen v1.0.0 h1:B/U0E1Cf5KekYF7Cx+M+CVi+Kk5juyGetb5QcXWZSgw=
+github.com/dolmen-go/codegen v1.0.0/go.mod h1:hw2TU7hTAA0vaJ1Cow+oSW9ClG+4uBGn6zPXIXsYW5c=
+github.com/dolmen-go/endian v1.0.1 h1:jc0rXoO1gWajQ/7sw1lZIjLwPphdKYGdYEp3y5KIpUs=
+github.com/dolmen-go/endian v1.0.1/go.mod h1:rw+fkskwTwEP3rsM5/TnnJIw3rQo/K2/s6BvAYNJWf0=
+github.com/stevegt/goadapt v0.3.0 h1:wmUhLU7ld6sYeUYBlRkHSJsG9ZkuGCGXDV3pHQVrC7I=
+github.com/stevegt/goadapt v0.3.0/go.mod h1:BWNnTsXdIxaseRo0W/MoVgDeLNf+6L4S4fPhyAsBTi0=
+golang.org/x/sys v0.0.0-20220627191245-f75cf1eec38b h1:2n253B2r0pYSmEV+UNCQoPfU/FiaizQEK5Gu4Bq4JE8=
+golang.org/x/sys v0.0.0-20220627191245-f75cf1eec38b/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
