@@ -30,13 +30,13 @@ func Open(target, size int64) (m *Mem, err error) {
 	fh, err := os.OpenFile("/dev/mem", os.O_RDWR|os.O_SYNC, os.ModePerm)
 	Ck(err)
 	defer fh.Close()
-	Pl("/dev/mem opened")
+	// Pl("/dev/mem opened")
 
 	/* Map one page */
 	pageSize := os.Getpagesize()
 	m.base = target / int64(pageSize) * int64(pageSize)
 	m.diff = int(target - m.base)
-	Pf("target 0x%x pageSize 0x%x base 0x%x\n", target, pageSize, m.base)
+	// Pf("target 0x%x pageSize 0x%x base 0x%x\n", target, pageSize, m.base)
 
 	prot := syscall.PROT_READ | syscall.PROT_WRITE
 	flags := syscall.MAP_SHARED
@@ -44,7 +44,7 @@ func Open(target, size int64) (m *Mem, err error) {
 
 	m.page, err = unix.Mmap(fd, m.base, pageSize, prot, flags)
 	Ck(err)
-	Pl("memory mapped")
+	// Pl("memory mapped")
 
 	if !(size == 8 || size == 16 || size == 32 || size == 64) {
 		err = fmt.Errorf("invalid bit width: %d\n", size)
@@ -56,24 +56,24 @@ func Open(target, size int64) (m *Mem, err error) {
 	return
 }
 
-func (m *Mem) Read() {
+func (m *Mem) Read() (res int64) {
 	raw := m.page[m.diff : m.diff+m.sizeb]
-	Pf("raw 0x%x\n", raw)
 	switch len(raw) * 8 {
 	case 8:
 		cooked := uint8(raw[0])
-		Pf("read 0x%x\n", cooked)
+		res = int64(cooked)
 	case 16:
 		cooked := order.Uint16(raw)
-		Pf("read 0x%x\n", cooked)
+		res = int64(cooked)
 	case 32:
 		cooked := order.Uint32(raw)
-		Pf("read 0x%x\n", cooked)
+		res = int64(cooked)
 	case 64:
 		cooked := order.Uint64(raw)
-		Pf("read 0x%x\n", cooked)
+		res = int64(cooked)
 	default:
 	}
+	return
 }
 
 func (m *Mem) Write(newVal uint64) (err error) {
@@ -85,7 +85,6 @@ func (m *Mem) Write(newVal uint64) (err error) {
 	for i := 0; i < m.sizeb; i++ {
 		m.page[m.diff+i] = newRaw[i]
 	}
-	Pf("write 0x%x\n", newVal)
 	return
 }
 

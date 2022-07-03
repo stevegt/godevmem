@@ -89,9 +89,11 @@ func main() {
 	mem, err := devmem.Open(target, size)
 	Ck(err)
 
-	mem.Read()
+	res := mem.Read()
+	Pf("read 0x%x\n", res)
 	if write {
 		mem.Write(newVal)
+		Pf("write 0x%x\n", newVal)
 		mem.Read()
 	}
 
