@@ -56,21 +56,21 @@ func Open(target, size int64) (m *Mem, err error) {
 	return
 }
 
-func (m *Mem) Read() (res int64) {
+func (m *Mem) Read() (res uint64) {
 	raw := m.page[m.diff : m.diff+m.sizeb]
 	switch len(raw) * 8 {
 	case 8:
 		cooked := uint8(raw[0])
-		res = int64(cooked)
+		res = uint64(cooked)
 	case 16:
 		cooked := order.Uint16(raw)
-		res = int64(cooked)
+		res = uint64(cooked)
 	case 32:
 		cooked := order.Uint32(raw)
-		res = int64(cooked)
+		res = uint64(cooked)
 	case 64:
 		cooked := order.Uint64(raw)
-		res = int64(cooked)
+		res = uint64(cooked)
 	default:
 	}
 	return
